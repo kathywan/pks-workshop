@@ -1,0 +1,52 @@
+= Pivotal Cloud Foundry 101 Workshop
+
+== Schedule
+
+This one day hands-on classroom style session will provide developers (and operators) with hands on experience with Pivotal Cloud Foundry concepts, architecture and fundamentals of pushing code and building applications. The session includes presentations, demos and hands on labs
+
+9:00 AM - 9:30 AM::
+ * Introduction and Discovery 
+9:30 AM - 10:00 AM::
+ * Session 1: _PKS Introduction_
+10:00 AM - 10:30 AM:: 
+ * Session 2: _Kubernetes 101_
+10:30 AM - 10:45 AM::
+ * Break
+10:45 AM - 11:15 AM::
+ * _Lab 1_
+11:15 AM - 12:15 AM:: time permits
+ * Session 3: _PKS: User Account and Authentication_
+ * Session 4: _PKS: Secure Container Management With Harbor_
+12:15 AM - 1:15 AM:: 
+* Lunch
+1:15 PM -2:00 PM:: 
+ * Session 5: _PKS: Monitoring and Logging_
+ * Session 6: _PKS: Upgrade Strategy_
+* _Lab 4_
+2:00 PM - 3:00 AM:: 
+ * Session 7: _Kubernetes: Services_
+ * Session 8: _Kubernetes: Persistent Volumes_
+3:00 PM - 4:00 AM:: 
+* _Lab: Plane Spotter_
+
+== Course Materials
+
+* Session 1: link:[PKS Introduction]
+* Session 2: link:[Kuberbetes 101]
+* Session 3: link:[PKS User Account and Authentication]
+* Session 4: link:[Secure Container Management With Harbor]
+* Session 5: link:[Monitoring and Logging]
+* Session 6: link:[PKS Upgrade Strategy]
+* Session 7: link:[Kubernetes: Services]
+* Session 8: link:[Kubernetes: Persistent Volumes]
+
+* Developer Workshop
+** Pre-work
+*** link:labs/labaccess.adoc[Get Environment Access]
+** link:labs/lab_cli.adoc[Lab 1 - From Zero to Deploying Your First Container]
+** link:labs/lab2/lab.adoc[Lab 2 - Binding to Cloud Foundry Services]
+** link:labs/lab3/lab.adoc[Lab 3 - Operating Your Application]
+** link:labs/lab4/lab.adoc[Lab 4 - Monitoring Your Application]
+** link:labs/lab5/lab.adoc[Lab 5 - Monitoring Spring Boot Application]
+//** link:https://github.com/Pivotal-Field-Engineering/pivotal-bank-demo[Advanced Lab - Spring Cloud Services, _**Java** Only_]
+//** link:labs/lab5/continuous-delivery-lab.adoc[Advanced Lab - Jenkins Integration]
