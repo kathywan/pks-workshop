@@ -16,6 +16,7 @@ This one day hands-on classroom style session will provide developers (and opera
  * _Lab 1_
 11:15 AM - 12:15 AM:: 
  * Session 3: _PKS: User Account and Authentication_
+ * LDAP integration demo
  * Session 4: _PKS: Secure Container Management With Harbor_
 12:15 AM - 1:15 AM:: 
 * Lunch
@@ -56,4 +57,4 @@ Workshop::
 *** link:labs/lab_declareConfig.adoc[Deploy Application with Declarative Configuration]
 *** link:labs/lab_stateful.adoc[Deploy with Stateful Set and Persistent Volume]
 ** Lab 3
-*** link:labs/lab_logging.adoc[Deploy Application with Declarative Configuration]
+*** link:labs/lab_logging.adoc[Monitoring and Logging]
