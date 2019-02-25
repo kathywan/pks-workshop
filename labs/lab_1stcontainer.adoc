@@ -16,7 +16,6 @@ Lets create our very first container application in the cluster. To do this we'l
 ====
  root@ubuntu:/# echo "My First Container"
  My First Container
-
  root@ubuntu:/# ps aux
  USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
  root         1  0.0  0.0  18248  3236 ?        S<s  21:07   0:00 /bin/bash -il
