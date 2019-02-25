@@ -37,14 +37,14 @@ This one day hands-on classroom style session will provide developers (and opera
 == Course Materials
 
 Presentations::
-** Session 1: link:[PKS Introduction]
-** Session 2: link:[Kuberbetes 101]
-** Session 3: link:[PKS User Account and Authentication]
-** Session 4: link:[Secure Container Management With Harbor]
-** Session 5: link:[Kubernetes: Services]
-** Session 6: link:[Kubernetes: Persistent Volumes]
-** Session 7: link:[Monitoring and Logging]
-** Session 8: link:[PKS Upgrade Strategy]
+** Session 1: link:https://drive.google.com/open?id=1FrIEXv7NvLN66ITTEkSTWATjzXjPNgbCEi9A1AekIko[PKS Introduction]
+** Session 2: link:https://drive.google.com/open?id=1FrIEXv7NvLN66ITTEkSTWATjzXjPNgbCEi9A1AekIko[Kuberbetes 101]
+** Session 3: link:https://drive.google.com/open?id=1G9BUTF1CPnvLpyWYD0n5S97GgxahjJzMH3cv43yZMSY[PKS User Account and Authentication]
+** Session 4: link:https://drive.google.com/open?id=17lCtuz-S8_sqi7J9MMSyxBLA0iQqzG52BUvYe5GURCY[Secure Container Management With Harbor]
+** Session 5: link:https://drive.google.com/open?id=17kvn1Qe15r2NN_6fMbmkV9azwVIcl7kJkk0UMCI_WY4[Kubernetes: Services]
+** Session 6: link:https://drive.google.com/open?id=1MfOYORbH0AJmT2JHzyLMZckRKR_NqJLgslEa08Qpt6Y[Kubernetes: Persistent Volumes]
+** Session 7: link:https://drive.google.com/open?id=1pog2brK7ljXKeHSQOjbCDevFMHRrIHl_MfXyE4MPqrE[Monitoring and Logging]
+** Session 8: link:https://drive.google.com/open?id=1PRC3ObePPcjspJnDaUbBrLkyxStBNJYgzfPIXhtlymk[PKS Upgrade Strategy]
 
 
 Workshop::
