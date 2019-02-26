@@ -15,15 +15,17 @@ This one day hands-on classroom style session will provide developers (and opera
 10:45 AM - 11:15 AM::
  * _Lab 1_
 11:15 AM - 12:15 AM:: 
- * Session 3: _PKS: User Account and Authentication_
- * LDAP integration demo
- * Session 4: _PKS: Secure Container Management With Harbor_
-12:15 AM - 1:15 AM:: 
-* Lunch
-1:15 PM -2:30 PM:: 
  * Session 5: _Kubernetes: Services_
  * Session 6: _Kubernetes: Persistent Volumes_
- * _Lab 2_
+* _Lab 2_
+12:15 AM - 1:15 AM:: 
+* Lunch
+1:15 PM -1:45 PM:: 
+* Session 3: _PKS: User Account and Authentication_
+ * LDAP integration demo
+1:45 PM -2:30 PM:: 
+ * Session 4: _PKS: Secure Container Management With Harbor_
+ * Harbor demo
 2:30 PM -2:45 PM:: 
  * break 
 2:45 PM - 3:15 AM:: 
@@ -39,10 +41,10 @@ This one day hands-on classroom style session will provide developers (and opera
 Presentations::
 ** Session 1: link:https://drive.google.com/open?id=1FrIEXv7NvLN66ITTEkSTWATjzXjPNgbCEi9A1AekIko[PKS Introduction]
 ** Session 2: link:https://drive.google.com/open?id=1FrIEXv7NvLN66ITTEkSTWATjzXjPNgbCEi9A1AekIko[Kuberbetes 101]
-** Session 3: link:https://drive.google.com/open?id=1G9BUTF1CPnvLpyWYD0n5S97GgxahjJzMH3cv43yZMSY[PKS User Account and Authentication]
-** Session 4: link:https://drive.google.com/open?id=17lCtuz-S8_sqi7J9MMSyxBLA0iQqzG52BUvYe5GURCY[Secure Container Management With Harbor]
-** Session 5: link:https://drive.google.com/open?id=17kvn1Qe15r2NN_6fMbmkV9azwVIcl7kJkk0UMCI_WY4[Kubernetes: Services]
-** Session 6: link:https://drive.google.com/open?id=1MfOYORbH0AJmT2JHzyLMZckRKR_NqJLgslEa08Qpt6Y[Kubernetes: Persistent Volumes]
+** Session 3: link:https://drive.google.com/open?id=17kvn1Qe15r2NN_6fMbmkV9azwVIcl7kJkk0UMCI_WY4[Kubernetes: Services]
+** Session 4: link:https://drive.google.com/open?id=1MfOYORbH0AJmT2JHzyLMZckRKR_NqJLgslEa08Qpt6Y[Kubernetes: Persistent Volumes]
+** Session 5: link:https://drive.google.com/open?id=1G9BUTF1CPnvLpyWYD0n5S97GgxahjJzMH3cv43yZMSY[PKS User Account and Authentication]
+** Session 6: link:https://drive.google.com/open?id=17lCtuz-S8_sqi7J9MMSyxBLA0iQqzG52BUvYe5GURCY[Secure Container Management With Harbor]
 ** Session 7: link:https://drive.google.com/open?id=1pog2brK7ljXKeHSQOjbCDevFMHRrIHl_MfXyE4MPqrE[Monitoring and Logging]
 ** Session 8: link:https://drive.google.com/open?id=1PRC3ObePPcjspJnDaUbBrLkyxStBNJYgzfPIXhtlymk[PKS Upgrade Strategy]
 
