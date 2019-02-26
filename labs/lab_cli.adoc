@@ -29,7 +29,7 @@ For reference, here are some other ways to install, https://kubernetes.io/docs/t
 You will need to retrieve the cluster credentials from PKS. First login using the the PKS credentials that were provided to you for this lab exercise.
 
 ====
- pks login -a api.pks.cfrocket.com -u USERNAME -p PASSWORD -k
+ pks login -a api.pks.haas-150.pez.pivotal.io -u USERNAME -p PASSWORD -k
 ====
 
 Now you can retrive your Kubernetes cluster credentials. Please use the cluster name that was provided to you for this lab exercise.
