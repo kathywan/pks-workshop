@@ -17,7 +17,7 @@ This one day hands-on classroom style session will provide developers (and opera
 11:15 AM - 12:15 AM:: 
  * Session 5: _Kubernetes: Services_
  * Session 6: _Kubernetes: Persistent Volumes_
-* _Lab 2_
+ * _Lab 2_
 12:15 AM - 1:15 AM:: 
 * Lunch
 1:15 PM -1:45 PM:: 

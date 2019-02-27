@@ -27,38 +27,46 @@ For reference, here are some other ways to install, https://kubernetes.io/docs/t
 ### 2. Cluster Access and Validation
 #### Get Cluster Credentials
 You will need to retrieve the cluster credentials from PKS. First login using the the PKS credentials that were provided to you for this lab exercise.
-
-====
- pks login -a api.pks.haas-150.pez.pivotal.io -u USERNAME -p PASSWORD -k
-====
+[source,bash]
+---------------------------------------------------------------------
+ pks login -a api.ws.pks101.com -u USERNAME -p PASSWORD -k
+---------------------------------------------------------------------
 
 Now you can retrive your Kubernetes cluster credentials. Please use the cluster name that was provided to you for this lab exercise.
-
-====
+[source,bash]
+---------------------------------------------------------------------
  pks get-credentials CLUSTER-NAME
-====
+---------------------------------------------------------------------
+
 
 #### Validating your Cluster
 Ensure that you can access the API Endpoints on the Master
-====
+[source,bash]
+---------------------------------------------------------------------
  kubectl cluster-info
-====
+---------------------------------------------------------------------
+
 
 You should see something similar to the following:
-====
+[source,bash]
+---------------------------------------------------------------------
  Kubernetes master is running at https://workshop.clusters.pks.cfrocket.com:8443
  Heapster is running at https://workshop.clusters.pks.cfrocket.com:8443/api/v1/namespaces/kube-system/services/heapster/proxy
  KubeDNS is running at https://workshop.clusters.pks.cfrocket.com:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
  kubernetes-dashboard is running at https://workshop.clusters.pks.cfrocket.com:8443/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy
  monitoring-influxdb is running at https://workshop.clusters.pks.cfrocket.com:8443/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
-====
+---------------------------------------------------------------------
+
 
 #### Accessing the Dashboard
 
 To access Dashboard from your local workstation you must create a secure channel to your Kubernetes cluster. Run the following command:
-====
+
+[source,bash]
+---------------------------------------------------------------------
  kubectl proxy
-====
+---------------------------------------------------------------------
+
 
 Now access Dashboard at:
 
