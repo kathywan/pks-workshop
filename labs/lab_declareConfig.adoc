@@ -7,7 +7,7 @@ image::img/fortune_arch.png[]
 image::img/fortune_ui.png[]
 
 == Create declarative resource definition for demo application
-. Create an empty *.yml* file named demo-pod.yml.  We will use this file to create the declarative configuration of the API objects required to deploy the demo application in a single pod.
+. Create an empty *.yml* file named fortune_pod.yml.  We will use this file to create the declarative configuration of the API objects required to deploy the demo application in a single pod.
 . Add the resource declaration to the yml file for a Pod API abject as follows:
 +
 [source,yml]
@@ -179,11 +179,12 @@ spec:
  watch kubectl get all -l deployment=pks-workshop --show-labels
 ---------------------------------------------------------------------
 
-. Deploy the demo application to your Kubernetes cluster using the kubectl _create_ command, using the declarative configuration you just created
+. Deploy the demo application to your Kubernetes cluster using the kubectl _create_ command, using the declarative configuration you just created (or you can use the yml we pre-created for you link:lab_k8s/fortune_pod.yml[here]
+)
 +
 [source,bash]
 ---------------------------------------------------------------------
-$ kubectl create -f demo-pod.yml
+$ kubectl create -f fortune-pod.yml
 service "fortune-service" created
 pod "fortune" created
 ---------------------------------------------------------------------
@@ -192,7 +193,7 @@ pod "fortune" created
 +
 [source,bash]
 ---------------------------------------------------------------------
-Every 2.0s: kubectl get all -l deployment=pks-workshop --show-labels                                                                               Wed Jan 17 09:11:31 2018
+Every 2.0s: kubectl get all -l deployment=pks-workshop --show-labels                                                                               Wed Dec 17 09:11:31 2018
 
 NAME         READY     STATUS    RESTARTS   AGE       LABELS
 po/fortune   3/3       Running   0          2m        app=fortune,deployment=pks-workshop
@@ -227,7 +228,7 @@ $ curl -v http://35.229.79.31:9080/fortune-backend-jee/app/fortune/all
 < X-Application-Context: application
 < Content-Type: application/json;charset=UTF-8
 < Transfer-Encoding: chunked
-< Date: Wed, 17 Jan 2018 14:22:56 GMT
+< Date: Wed, 17 Dec 2018 14:22:56 GMT
 <
 * Connection #0 to host 35.229.79.31 left intact
 

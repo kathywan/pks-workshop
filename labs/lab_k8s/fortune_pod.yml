@@ -2,9 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: fortune-service
+    app: fortune-pod
     deployment: pks-workshop
-  name: fortune-service
+  name: fortune-pod-service
 spec:
   ports:
   - port: 80
@@ -15,15 +15,15 @@ spec:
     name: redis
   type: LoadBalancer
   selector:
-    app: fortune
+    app: fortune-pod
 ---
 apiVersion: v1
 kind: Pod
 metadata:
   labels:
-    app: fortune
+    app: fortune-pod
     deployment: pks-workshop
-  name: fortune
+  name: fortune-pod
 spec:
   containers:
   - image: azwickey/fortune-ui:latest
