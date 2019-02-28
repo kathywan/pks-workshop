@@ -1,8 +1,8 @@
-= Introducing State, Configuration
+= StatefulSet, Persistent Volume, and Configuration
 
 Until now, our Redis data service is still running within the original Pod (co-located with the original backend and frontend ui).  This single, non-durable container running does not provide the durability and availability required of a real-world persistent application.  Its to improve this by migrating Redis into a StatefulSet.
 
-== Build Stateful Set
+=== Build Stateful Set
 . Create an additional empty *yml* file named fortune_redis_ss.yml.  This file will be used to deploy the Redis database as a _StatefulSet_.  As before, add the api version, kind, and basic metadata to the empty yml file:
 +
 [source,yml]
@@ -44,35 +44,7 @@ spec:
       name: redis
 ---------------------------------------------------------------------
 
-. The completed StatefulSet declaration should look like this:
-+
-[source,yml]
----------------------------------------------------------------------
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: fortune-redis
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: fortune-redis
-  serviceName: fortune-redis-service
-  template:
-    metadata:
-      name: fortune-redis
-      labels:
-        app: fortune-redis
-        deployment: pks-workshop
-    spec:
-      containers:
-      - name: fortune-redis
-        image: redis
-        ports:
-        - containerPort: 6379
-          name: redis
-
----------------------------------------------------------------------
+. The completed StatefulSet declaration should look like link:lab_k8s/fortune_redis_ss.yml[fortune_redis_ss.yml]:
 
 . Create the API Resource Object using kubectl create:
 +
@@ -82,17 +54,17 @@ $ kubectl create -f fortune_redis_ss.yml
 statefulset "fortune-redis" created
 ---------------------------------------------------------------------
 
-== Test the Initial Redis StatefulSet
+=== Test the Initial Redis StatefulSet
 . Since there is no service exposing Redis at this point (we'll get to that in a bit), we'll test the Redis instance by ssh'ing into the container and using the Redis CLI that is installed into the Redis container that has been started.  First we need to find the name of the Pod created.  Execute the following kubectl command:
 +
 [source,bash]
 ---------------------------------------------------------------------
 $ kubectl get all -l app=fortune-redis
-NAME                         DESIRED   CURRENT   AGE
-statefulsets/fortune-redis   1         1         1m
+NAME                  READY   STATUS    RESTARTS   AGE
+pod/fortune-redis-0   1/1     Running   0          9s
 
-NAME                 READY     STATUS    RESTARTS   AGE
-po/fortune-redis-0   1/1       Running   0          1m
+NAME                             DESIRED   CURRENT   AGE
+statefulset.apps/fortune-redis   1         1         9s
 ---------------------------------------------------------------------
 
 . From this output we see that a StatefulSet has been created, named fortune-redis, along with a supporting Pod, name fortune-redis-0.  SSH into the Redis container using the kubectl _exec_ command passing it the flags to obtain and interactive shell:
@@ -152,7 +124,7 @@ root@fortune-redis-0:/data# redis-cli
 
 . What happened to our data?  Though the StatefulSet recreated the Redis instance all resources, including disk volumes, were ephemeral.  StatefulSets are responsible for always attaching the correct volumes to the containers; we just need to define them!  We'll do that in the next step.
 
-== Add a Persistent Volume to the Instance
+=== Add a Persistent Volume to the Instance
 . Within the Spec for the StatefulSet begin defining the volumeClaimTemplates for the dynamic volume mount.  The definition is comprised of the a metadata section and a spec for the volume.  We'll start by creating the volumeClaimTemplates and defining the metadata section.  Make sure the definition of the volumeClaimTemplates under the spec of the StatfulSet; a sibling to the _template_ and _selector_ attributes:
 +
 [source,yml]
@@ -233,7 +205,7 @@ spec:
 
 ---------------------------------------------------------------------
 
-== Create a ConfigMap to Customize Redis Config via and Additional Volume Mount
+=== Create a ConfigMap to Customize Redis Config via Additional Volume Mount
 . Within the same yml file, create another yml directive at the bottom of the file. Within this new directive add the resource definition for a ConfigMap API object as follows:
 +
 [source,yml]
@@ -314,116 +286,24 @@ volumeMounts:
 command: [sh, -c, redis-server /redis-config/redis.conf]
 ---------------------------------------------------------------------
 
-. The completed StatefuleSet declaration should look like this:
-+
-[source,yml]
----------------------------------------------------------------------
-apiVersion: apps/v1beta2
-kind: StatefulSet
-metadata:
-  name: fortune-redis
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: fortune-redis
-  serviceName: fortune-redis-service
-  template:
-    metadata:
-      name: fortune-redis
-      labels:
-        app: fortune-redis
-        deployment: pks-workshop
-    spec:
-      containers:
-      - name: fortune-redis
-        image: redis
-        command: [sh, -c, redis-server /redis-config/redis.conf]
-        ports:
-        - containerPort: 6379
-          name: redis
-        volumeMounts:
-        - name: data
-          mountPath: /redis-data
-        - name: config
-          mountPath: /redis-config
-      volumes:
-      - name: config
-        configMap:
-          name: redis-config
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-      labels:
-        app: fortune-redis
-        deployment: pks-workshop
-      annotations:
-        volume.beta.kubernetes.io/storage-class: standard
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 5Gi
----------------------------------------------------------------------
+. The completed StatefuleSet declaration should look like the `StaefulSet` in link:lab_k8s/fortune_redis_persist.yml[fortune_redis_persist.yml]:
 
+=== Create a Service to Expose the Redis StatefulSet
+Within the same yml file, create another yml directive at the top of the file to add service. The completed configuration for the Service, StatefulSet, and ConfigMap API objects should appear as link:lab_k8s/fortune_redis_persist.yml[fortune_redis_persist.yml]:
+
+
+=== Create the API Resource Object.
 . Since there are updates made to the stateful set outside the template (the volumeClaimTemplates) the update cannot simply be made using the kubectl _apply_.  First delete the existing StatefulSet and recreate using the delete and create commands:
 +
 [source,bash]
 ---------------------------------------------------------------------
-$ kubectl delete -f fortune_redis_ss.yml                                                                                                                 1 ↵
-statefulset "fortune-redis" deleted
+$ kubectl delete -f fortune_redis_ss.yml
+statefulset.apps "fortune-redis" deleted
 
-$ kubectl create -f fortune_redis_ss.yml
-statefulset "fortune-redis" created
-configmap "redis-config" created
----------------------------------------------------------------------
-
-== Create a Service to Expose the Redis StatefulSet
-. Within the same yml file, create another yml directive at the top of the file. Within this new directive add the resource definition for a Service API object as follows:
-+
-[source,yml]
----------------------------------------------------------------------
-apiVersion: v1
-kind: Service
-metadata:
-  name: fortune-redis-service
----
----------------------------------------------------------------------
-. As before, add the spec for the ports that need to exposed by our application:
-+
-[source,yml]
----------------------------------------------------------------------
-spec:
-  ports:
-  - port: 6379
-    name: redis
----------------------------------------------------------------------
-. Create a resource selector linking the service to the fortune-redis StatefulSet:
-+
-[source,yml]
----------------------------------------------------------------------
-selector:
-  app: fortune-redis
----------------------------------------------------------------------
-. As with the all other API objects, add a _labels_ attribute to the metadata section of the service resource configuration:
-+
-[source,yml]
----------------------------------------------------------------------
-labels:
-  app: fortune-redis-service
-  deployment: pks-workshop
----------------------------------------------------------------------
-
-. The completed configuration for the Service, StatefulSet, and ConfigMap API objects should appear as link:lab_k8s/fortune_redis_persist.yml[fortune_redis_persist.yml]:
-
-. Create the API Resource Object using kubectl apply.
-+
-[source,bash]
----------------------------------------------------------------------
-$ kubectl apply -f fortune_redis_persist.yml
-service "fortune-redis" created
-statefulset "fortune-redis" configured
-configmap "redis-config" unchanged
+$ kubectl create -f fortune_redis_persist.yml
+service/fortune-redis-service created
+statefulset.apps/fortune-redis created
+configmap/redis-config created
 ---------------------------------------------------------------------
 
 == Test Data Persistence on New Container Volume Mounts

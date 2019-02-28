@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: fortune-redis
+  labels:
+        app: fortune-redis
+        deployment: pks-workshop
 spec:
   replicas: 1
   selector:
