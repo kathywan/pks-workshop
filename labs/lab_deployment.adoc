@@ -77,52 +77,7 @@ spec:
 ---------------------------------------------------------------------
 
 == Create a Service Resource for Routing Traffic to the Deployment 
-. Within the same yml file, create another yml directive at the top of the file. Within this new directive add the resource definition for a Service API object as follows:
-+
-[source,yml]
----------------------------------------------------------------------
-apiVersion: v1
-kind: Service
-metadata:
-  name: fortune-deploy-service
----
----------------------------------------------------------------------
-. As before, add the spec for the ports that need to exposed by our application and the Service type:
-+
-[source,yml]
----------------------------------------------------------------------
-spec:
-  ports:
-  - port: 80
-    name: ui
-  - port: 9080
-    name: backend
-  type: LoadBalancer
----------------------------------------------------------------------
-. Create a resource selector linking the service to the fortune-backend deployment:
-+
-[source,yml]
----------------------------------------------------------------------
-selector:
-  app: fortune-deploy
----------------------------------------------------------------------
-. As with the all other API objects, add a _labels_ attribute to the metadata section of the service resource configuration:
-+
-[source,yml]
----------------------------------------------------------------------
-labels:
-  app: fortune-deploy-service
-  deployment: pks-workshop
----------------------------------------------------------------------
-
-. The completed configuration for the API objects should appear as link:lab_k8s/fortune_deploy.yml[this]
-
-. Open a command window and *watch* the kubectl _get_ command, if not still running from the previous demo.  Use the labels we attached to the resources earlier as filters so only the resources associated with the demo application appear:
-+
-[source,bash]
----------------------------------------------------------------------
- watch kubectl get all -l deployment=pks-workshop --show-labels
----------------------------------------------------------------------
+. Within the same yml file, create a loadBalancer service for the deployment like what we did in the previous lab. The completed configuration for the API objects should appear as link:lab_k8s/fortune_deploy.yml[this]
 
 . Deploy the API objects to your Kubernetes cluster using the kubectl _create_ command, using the declarative configuration you just created:
 +
@@ -133,7 +88,7 @@ service "fortune-deploy-service" created
 deployment "fortune-deploy" created
 ---------------------------------------------------------------------
 
-. Inspect the output of your watch of the kubectl get command.  You'll see the newly deployed Deployment, associated Pods, and Service appear and startup.  Take note of the external IP address that is assigned to the new fortune-deploy-service as that can be used to access the application.
+. Inspect the output of the kubectl get command.  You'll see the newly deployed Deployment, associated Pods, and Service appear and startup.  Take note of the external IP address that is assigned to the new fortune-deploy-service as that can be used to access the application.
 +
 [source,bash]
 ---------------------------------------------------------------------
