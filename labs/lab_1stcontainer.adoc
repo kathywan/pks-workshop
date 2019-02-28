@@ -36,7 +36,7 @@ image::img/k8s_dashboard_2.png[]
  Name:         ubuntu
  Namespace:    default
  Node:         vm-623978bf-6ccc-412e-5673-ee7fc5d3d4a1/10.0.16.11
- Start Time:   Tue, 16 Jan 2018 16:07:06 -0500
+ Start Time:   Tue, 16 Dec 2018 16:07:06 -0500
  Labels:       run=ubuntu
  Annotations:  <none>
  Status:       Running
@@ -51,7 +51,7 @@ image::img/k8s_dashboard_2.png[]
        /bin/bash
        -il
      State:          Running
-       Started:      Tue, 16 Jan 2018 16:07:15 -0500
+       Started:      Tue, 16 Dec 2018 16:07:15 -0500
      Ready:          True
      Restart Count:  0
      Environment:    <none>

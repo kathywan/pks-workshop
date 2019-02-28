@@ -205,11 +205,11 @@ svc/fortune-service   LoadBalancer   10.100.200.249   35.229.79.31   80:30828/TC
 
 . Open a web browser and access the application using the external IP on port 80.  E.G. http://35.229.79.31
 +
-image::images/02-3.png[]
+image::img/fortune_ui_default.png[]
 
 . Right now we receive the default fortune of "Your future is murky" because the Redis backend doesn't have any fortunes loaded.  Click on the _All Fortunes_ link and type a fortune in the text box.  Upon hitting return the fortune will be stored into Redis.  Add multiple fortunes.
 +
-image::images/02-4.png[]
+image::img/fortune_ui_fortunes.png[]
 
 . Additionally, you may recall we exposed a service on port 9080.  This represents the backend Java JEE application exposing a JAX-RS service endpoint.  Access the /fortune-backend-jee/app/fortune/all endpoint using the external IP address but specify port 9080 this time.  E.G. http://35.229.79.31:9080/fortune-backend-jee/app/fortune/all  This can be done in a web browser or using a tool such as Curl:
 +
