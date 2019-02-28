@@ -136,7 +136,7 @@ resources:
 
 . Uncomment the section above from the link:lab_k8s/fortune_deploy.yml[yml]. Also uncomment the lable at `.spec.template.metadata.labels` or add a new one.
  
- NOTE: A Deployment’s rollout is triggered if and only if the Deployment’s pod template (that is, .spec.template) is changed, for example if the labels or container images of the template are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
+NOTE: A Deployment’s rollout is triggered if and only if the Deployment’s pod template (that is, .spec.template) is changed, for example if the labels or container images of the template are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
 
 . The deployment API object already exists within the Kubernetes cluster.  Use the kubectl _apply_ command to update the existing objects, passing in the yml description of the api objects:
 +

@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: fortune-deploy-service
   labels:
-    app: fortune-deploy-service
+    app: fortune-deploy
     deployment: pks-workshop
 spec:
   type: LoadBalancer

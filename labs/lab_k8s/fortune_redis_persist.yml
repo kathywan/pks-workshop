@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: fortune-redis
+    deployment: pks-workshop
+  name: fortune-redis-service
+spec:
+  ports:
+  - port: 6379
+    name: redis
+  selector:
+    app: fortune-redis
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: fortune-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fortune-redis
+  serviceName: fortune-redis-service
+  template:
+    metadata:
+      name: fortune-redis
+      labels:
+        app: fortune-redis
+        deployment: pks-workshop
+    spec:
+      containers:
+      - name: fortune-redis
+        image: redis
+        command: [sh, -c, redis-server /redis-config/redis.conf]
+        ports:
+        - containerPort: 6379
+          name: redis
+        volumeMounts:
+        - name: data
+          mountPath: /redis-data
+        - name: config
+          mountPath: /redis-config
+      volumes:
+      - name: config
+        configMap:
+          name: redis-config
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+      labels:
+        app: fortune-redis
+        deployment: pks-workshop
+      annotations:
+        volume.beta.kubernetes.io/storage-class: ci-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "ci-storage"
+      resources:
+        requests:
+          storage: 1Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-config
+  labels:
+    app: fortune-redis
+    deployment: pks-workshop
+data:
+  redis.conf: |
+    bind 0.0.0.0
+    port 6379
+
+    dir /redis-data
+
+    save 5 1
+    save 60 3
