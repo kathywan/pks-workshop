@@ -1,0 +1,9 @@
+apiVersion: apps.pivotal.io/v1beta1
+kind: ClusterSink
+metadata:
+   name: demo-cluster-sink
+spec:
+   type: syslog
+   host: logs6.papertrailapp.com
+   port: 54614
+   enable_tls: true
