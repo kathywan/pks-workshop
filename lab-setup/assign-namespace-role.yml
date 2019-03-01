@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ws-user1
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: user1-role
+  namespace: ws-user1 # This only grants permissions within the specific namespace.
+subjects:
+- kind: User
+  name: user1 # Name is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: edit # Default K8s Role - grants read/write permissions to all object in namespace except for Roles and RoleBindings.
+  apiGroup: rbac.authorization.k8s.io

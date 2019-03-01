@@ -1,0 +1,30 @@
+= Workshop Setup
+
+* create users with `pks.clusters.manage` role
+* log in cluster as admin.
++
+----
+$ pks login -a api.ws.pks101.com -u ADMINUSERNAME -k
+$ pks get-credentials wscluster
+----
+
+** for each user, modify link:assign-namespace-role.yml[assign-namespace-role.yml] and run
++
+----
+$ kubectl create -f assign-namespace-role.yml
+----
+This will create namespace for the user and assign user `edit` permission to the namespace created
+
+* each user log in to pks 
++
+----
+$ pks login -a api.ws.pks101.com -u USERNAME -k
+----
+
+** Run following commands to setup local kubectl context
++
+----
+$ kubectl config view --raw -o json | jq -r '.clusters[] | select(.name == "'$(kubectl config current-context)'") | .cluster."certificate-authority-data"' | base64 --decode > ca-cert.crt
+
+$ scripts/get-pks-k8s-config.sh --API=api.ws.pks101.com --CLUSTER=<CLUSTER HOST> --USER=<USERNAME> --NS=<NAMESPACE> --CERT=ca-cert.crt
+----
