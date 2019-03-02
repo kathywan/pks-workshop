@@ -77,3 +77,12 @@ When prompted for choosing either the Kubeconfig or Token, choose Kubeconfig.  Y
 On Windows, you may want to use Firefox or Chrome as Explorer has some issues.
 
 If for some reason you are not able to pick the config file, you can also use Token. Find `id-token` of your user from `HOME-DIR/.kube/config` file and copy paste the token.
+
+#### Setting the namespace preference
+You can permanently save the namespace for all subsequent kubectl commands in that context.
+[source,bash]
+---------------------------------------------------------------------
+$ kubectl config set-context $(kubectl config current-context) --namespace=YOUR-NAMESPACE
+# Validate it
+$ kubectl config view | grep namespace:
+---------------------------------------------------------------------
