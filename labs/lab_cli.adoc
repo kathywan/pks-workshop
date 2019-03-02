@@ -1,16 +1,6 @@
 ## PKS Workshop Lab 1
 This is a sample SpringBoot application that performs Geo Bounded queries against an Elastic Search instance and plots the data on a map interactively. This application can be run on a workstation or in a cloud environment such as Cloud Foundry. In this example, I will show how to deploy the application on a running Cloud Foundry instance.
 
-* <<1. Install and Setup CLIs>>
-	- <<Install PKS CLI>>
-	- <<Install kubectl CLI>>
-* <<2. Cluster Access and Validation>>
-	- <<Get Cluster Credentials>>
-	- <<Validating your Cluster>>
-	- <<Accessing the Dashboard>>
-// * <<3. Lab Exercise: Set Environment Variables>>
-// * <<4. Lab Exercise: Deploy A SpringBoot application with an Elastic Search Backend>>
-
 ### 1. Install and Setup CLIs
 #### Install PKS CLI
 In order to install the PKS CLI please follow these instructions: https://docs.pivotal.io/runtimes/pks/1-3/installing-pks-cli.html. Note, you will need to register with network.pivotal.io in order to download the CLI.
