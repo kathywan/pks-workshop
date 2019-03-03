@@ -49,11 +49,11 @@ spec:
               protocol: TCP
           env:
           - name: REDIS_HOST
-            value: "fortune-pod-service.default.svc.cluster.local"
-          # resources:
-          #   requests:
-          #     memory: "1G"
-          #     cpu: "0.5"
-          #   limits:
-          #     memory: "2G"
-          #     cpu: "1.0"
+            value: "fortune-pod-service.kwan.svc.cluster.local"
+          resources:
+            requests:
+              memory: "1G"
+              cpu: "0.5"
+            limits:
+              memory: "2G"
+              cpu: "1.0"

@@ -28,7 +28,7 @@ spec:
 
 . Continue adding to the Deployment template by defining the spec for the containers that are part of the deployment template.  Refer to the `spec` section of the completed link:lab_k8s/fortune_deploy.yml[yml] 
 
-. Lastly, add an environment variable that defines how the backend will connect to the redis server.  This is required since the backend app and redis are no longer colocated in the same pod (and referenceable via localhost).  This value references the DNS entry created in kube-DNS for the original fortune-pod-service created during the initial pod deployment. Generally the DNS for service is like `<service name>.<namespace>.svc.cluster.local`. Make sure this value is part of the first element in the *containers* array:
+. Lastly, add an environment variable that defines how the backend will connect to the redis server.  This is required since the backend app and redis are no longer colocated in the same pod (and referenceable via localhost).  This value references the DNS entry created in kube-DNS for the original fortune-pod-service created during the initial pod deployment. Generally the DNS for service is like `<service name>.<namespace>.svc.cluster.local`. Make sure to replace with your namespace:
 +
 [source,yml]
 ---------------------------------------------------------------------
@@ -77,7 +77,7 @@ spec:
 ---------------------------------------------------------------------
 
 == Create a Service Resource for Routing Traffic to the Deployment 
-. Within the same yml file, create a loadBalancer service for the deployment like what we did in the previous lab. The completed configuration for the API objects should appear as link:lab_k8s/fortune_deploy.yml[this]
+. Within the same yml file, create a loadBalancer service for the deployment like what we did in the previous lab. The completed configuration for the API objects should appear as link:lab_k8s/fortune_deploy.yml[this]. Make sure updating the value of environment variable `REDIS_HOST` with your namespace before applying changes.
 
 . Deploy the API objects to your Kubernetes cluster using the kubectl _create_ command, using the declarative configuration you just created:
 +

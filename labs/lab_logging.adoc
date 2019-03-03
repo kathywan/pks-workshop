@@ -1,5 +1,16 @@
 = Monitoring and Logging
 
+== command line
+`kubectl logs` command can be used to dump or stream stdout logs. Try some commands:
+----
+$ kubectl logs fortune-pod                           # dump pod logs (stdout)
+$ kubectl logs fortune-pod -c fortune-backend        # dump pod container logs (stdout, multi-container case)
+
+$ kubectl logs -f fortune-pod                        # stream pod logs (stdout)
+$ kubectl logs -f fortune-pod -c fortune-backend     # stream pod container logs (stdout, multi-container case)
+----
+
+== Ingest logs to a third-party log management service
 Application operators are often interested in long-term retention, indexing, and analysis of logs.
 
 In this section, we'll drain logs to a very simple provider called https://papertrailapp.com[Papertrail].
