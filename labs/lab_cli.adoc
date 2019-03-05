@@ -7,8 +7,11 @@ In order to install the PKS CLI please follow these instructions: https://docs.p
 
 Download from: https://network.pivotal.io/products/pivotal-container-service/
 
+Alternatively, you can grab it link:cli[here].
+
 #### Install kubectl CLI
-You can install the kubectl CLI from PivNet as well, https://network.pivotal.io/products/pivotal-container-service
+You can install the kubectl CLI from PivNet as well, or grab it link:cli[here]
+https://network.pivotal.io/products/pivotal-container-service
 
 What you download is the executable. After downloading, rename the file to `kubectl`, move it to where you like and make sure it's in your path.
 
@@ -28,7 +31,6 @@ Now you can retrive your Kubernetes cluster credentials. Please use the cluster 
  pks get-credentials CLUSTER-NAME
 ---------------------------------------------------------------------
 
-
 #### Validating your Cluster
 Ensure that you can access the API Endpoints on the Master
 [source,bash]
@@ -40,11 +42,11 @@ Ensure that you can access the API Endpoints on the Master
 You should see something similar to the following:
 [source,bash]
 ---------------------------------------------------------------------
- Kubernetes master is running at https://workshop.clusters.pks.cfrocket.com:8443
- Heapster is running at https://workshop.clusters.pks.cfrocket.com:8443/api/v1/namespaces/kube-system/services/heapster/proxy
- KubeDNS is running at https://workshop.clusters.pks.cfrocket.com:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
- kubernetes-dashboard is running at https://workshop.clusters.pks.cfrocket.com:8443/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy
- monitoring-influxdb is running at https://workshop.clusters.pks.cfrocket.com:8443/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
+Kubernetes master is running at https://wscluster.ws.pks101.com:8443
+Heapster is running at https://wscluster.ws.pks101.com:8443/api/v1/namespaces/kube-system/services/heapster/proxy
+KubeDNS is running at https://wscluster.ws.pks101.com:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+kubernetes-dashboard is running at https://wscluster.ws.pks101.com:8443/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy
+monitoring-influxdb is running at https://wscluster.ws.pks101.com:8443/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ---------------------------------------------------------------------
 
 
