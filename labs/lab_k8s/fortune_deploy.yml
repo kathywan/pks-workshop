@@ -50,10 +50,10 @@ spec:
           env:
           - name: REDIS_HOST
             value: "fortune-pod-service.kwan.svc.cluster.local"
-          resources:
-            requests:
-              memory: "1G"
-              cpu: "0.5"
-            limits:
-              memory: "2G"
-              cpu: "1.0"
+          # resources:
+          #   requests:
+          #     memory: "1G"
+          #     cpu: "0.5"
+          #   limits:
+          #     memory: "2G"
+          #     cpu: "1.0"
