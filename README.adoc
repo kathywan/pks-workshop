@@ -75,5 +75,6 @@ Workshop::
 *** link:labs/lab_declareConfig.adoc[Deploy Application with Declarative Configuration]
 *** link:labs/lab_deployment.adoc[Deploy Application with Deployment Controller]
 *** link:labs/lab_stateful.adoc[Deploy with Stateful Set and Persistent Volume]
+*** link:labs/lab_ingresscontroller.adoc[Access Application through Ingress]
 ** Lab 3
 *** link:labs/lab_logging.adoc[Monitoring and Logging]
