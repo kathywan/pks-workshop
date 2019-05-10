@@ -1,0 +1,166 @@
+= Ingress Controller
+
+In this lab, we will deploy Nginx ingress controller per link:https://kubernetes.github.io/ingress-nginx/deploy/[doc] and define ingress routes sample apps and to our fortune UI, fortune service, and redis.
+
+=== Install Nginx Ingress Controller 
+This generally will be done by cluster administrator and be shared across cluster. We have pre-installed for you.
+
+. Pks login as cluster admin
++
+[source,bash]
+---------------------------------------------------------------------
+$ pks login -a {PKS API URL} -k -u username -p *****
+---------------------------------------------------------------------
+
+. Start by creating the “mandatory” resources for Nginx Ingress in your clustes, which includes the deployment:
++
+[source,bash]
+---------------------------------------------------------------------
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
+---------------------------------------------------------------------
+
+. Next, create loadbalancer service for ingress controller:
++
+[source,bash]
+---------------------------------------------------------------------
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/provider/cloud-generic.yaml
+---------------------------------------------------------------------
+
+. Check it's all set up properly
++
+[source,bash]
+---------------------------------------------------------------------
+$ kubectl get all -n ingress-nginx
+---------------------------------------------------------------------
+
+=== Test with a sample ingress
+. First, let’s create two services to demonstrate how the Ingress routes our request. We’ll run two web applications that output a slightly different response.
+link:lab_k8s/apple.yml[apple.yml] and link:lab_k8s/banana.yml[banana.yml]
+
+. Deploy the two applications:
++
+[source,bash]
+---------------------------------------------------------------------
+$ kubectl apply -f apple.yaml
+$ kubectl apply -f banana.yaml
+---------------------------------------------------------------------
+
+. Now, declare an Ingress to route requests to /apple to the apple service, and requests to /banana to banana service. Check out the Ingress rules field that declares how requests are passed along link:lab_k8s/apple_banana_ingress.yml[apple_banana_ingress.yml]:
++
+[source,yaml]
+---------------------------------------------------------------------
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /apple
+          backend:
+            serviceName: apple-service
+            servicePort: 5678
+        - path: /banana
+          backend:
+            serviceName: banana-service
+            servicePort: 5678
+---------------------------------------------------------------------
+
+. Create the Ingress in the same namespace your apps deployed
++
+[source,bash]
+---------------------------------------------------------------------
+$  kubectl create -f apple_banana_ingress.yml
+ingress.extensions/example-ingress created
+---------------------------------------------------------------------
+
+. Find external IP of the ingress controller load balancer service:
++
+[source,bash]
+---------------------------------------------------------------------
+$ kubectl get svc -n ingress-nginx
+NAME            TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)                      AGE
+ingress-nginx   LoadBalancer   10.100.200.206   35.237.179.46   80:30827/TCP,443:31190/TCP   18h
+
+root@fortune-redis-0:/data# redis-cli
+
+127.0.0.1:6379> KEYS *
+(empty list or set)
+---------------------------------------------------------------------
+
+. Perfect! Let’s check that it’s working.
++
+[source,bash]
+---------------------------------------------------------------------
+$ curl -kL http://35.237.179.46/apple
+apple
+$ curl -kL http://35.237.179.46/banana
+banana
+$ curl -kL http://35.237.179.46/random
+<html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx/1.15.10</center>
+</body>
+</html>
+---------------------------------------------------------------------
+
+
+=== Create a ingress to our fortune app
+. If you still have fortune UI app running from our last labs, we can create an ingress to route traffic to it. If not, we have this link:lab_k8s/fortune_ingress_allinone.yml[all-in-one yaml] ready for you.
++
+[source,yml]
+---------------------------------------------------------------------
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: fortune-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /fortune
+          backend:
+            serviceName: fortune-deploy-service
+            servicePort: 80
+---------------------------------------------------------------------
+
+. Next deploy the ingress:
++
+[source,bash]
+---------------------------------------------------------------------
+$ kubectl apply -f fortune_ingress_allinone.yml
+---------------------------------------------------------------------
+
+. Now we can use the same ingress controller load balancer IP and defined path to access out fortune app
++
+[source,bash]
+---------------------------------------------------------------------
+$ curl -kL https://35.237.179.46/fortune
+<DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>Fortune Teller</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <script src="app.js"></script>
+    </head>
+    <body onload="loadOne()">
+      <div class="jumbotron container">
+          <h1>Fortune Teller!</h1>
+          <p>Find out what the future holds...</p>
+      </div>
+      <div class="container">
+          <p>| <b>Random Fortune</b> | <a href="all-fortunes.html">All Fortunes</a> |</p>
+        <blockquote id="fortune" />
+      </div>
+    </body>
+    </html>
+---------------------------------------------------------------------
