@@ -1,0 +1,39 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: petclinic-deploy-service
+  labels:
+    app: petclinic-deploy
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      name: petclinic
+      targetPort: 8080
+  selector:
+    app: petclinic-deploy
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: petclinic-deploy
+  labels:
+    app: petclinic-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: petclinic-deploy
+  template:
+    metadata:
+      name: petclinic-deploy
+      labels:
+        app: petclinic-deploy
+    spec:
+      containers:
+        - name: petclinic
+          image: kathywan/spring-petclinic-image:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
