@@ -1,0 +1,44 @@
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: appmgr
+# ---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: crb-users
+subjects:
+- kind: User
+  name: user1 # Name is case sensitive
+  namespace: user1
+- kind: User
+  name: user2 # Name is case sensitive
+  namespace: user2
+- kind: User
+  name: user3 # Name is case sensitive
+  namespace: user3
+- kind: User
+  name: user4 # Name is case sensitive
+  namespace: user4
+- kind: User
+  name: user5 # Name is case sensitive
+  namespace: user5
+- kind: User
+  name: user6 # Name is case sensitive
+  namespace: user6
+- kind: User
+  name: user7 # Name is case sensitive
+  namespace: user7
+- kind: User
+  name: user8 # Name is case sensitive
+  namespace: user8
+- kind: User
+  name: user9 # Name is case sensitive
+  namespace: user9
+- kind: User
+  name: user10 # Name is case sensitive
+  namespace: user10
+roleRef:
+  kind: ClusterRole
+  name: edit # Default K8s Role - grants read/write permissions to all object in namespace except for Roles and RoleBindings.
+  apiGroup: rbac.authorization.k8s.io

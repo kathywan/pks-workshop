@@ -118,10 +118,10 @@ spec:
         app: fortune-redis
         deployment: pks-workshop
       annotations:
-        volume.beta.kubernetes.io/storage-class: ci-storage
+        volume.beta.kubernetes.io/storage-class: standard
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "ci-storage"
+      storageClassName: "standard"
       resources:
         requests:
           storage: 1Gi

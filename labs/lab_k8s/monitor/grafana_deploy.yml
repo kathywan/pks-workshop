@@ -1,0 +1,107 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grafana
+  name: grafana-deployment
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: grafana
+  template:
+    metadata:
+      labels:
+        component: grafana
+    spec:
+      volumes:
+      - name: grafana-claim
+        persistentVolumeClaim:
+          claimName: grafana-claim
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        fsGroup: 472
+      containers:
+      - name: grafana
+        image: grafana/grafana
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            cpu: 500m
+            memory: 2500Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        # livenessProbe:
+        #   exec:
+        #     command:
+        #       - wget 
+        #       - localhost:3000
+        #       - --spider
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 30
+        # readinessProbe:
+        #   exec:
+        #     command:
+        #       - wget 
+        #       - localhost:3000
+        #       - --spider
+          # initialDelaySeconds: 120
+          # periodSeconds: 5
+        volumeMounts:
+        - mountPath: /var/lib/grafana
+          name: grafana-claim
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    component: grafana
+  name: grafana-claim
+  namespace: monitoring
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-ip-service
+  namespace: monitoring
+  annotations:
+      prometheus.io/scrape: 'true'
+      prometheus.io/path:   /metrics
+      prometheus.io/port:   '3000'
+spec:
+  type: ClusterIP 
+  selector:
+    component: grafana
+  ports:
+  - port: 3000
+    targetPort: 3000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana-ingress
+  namespace: monitoring
+  annotations:
+    prometheus.io/scape: 'true'
+    prometheus.io/port: '80'
+spec:
+  rules:
+  - host: grafana.contour.sanjacinto.cf-app.com
+    http:
+      paths:
+        - backend:
+            serviceName: grafana-ip-service
+            servicePort: 3000

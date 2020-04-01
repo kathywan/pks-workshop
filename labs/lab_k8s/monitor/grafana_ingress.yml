@@ -1,0 +1,17 @@
+# helm install grafana stable/grafana -n monitoring
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana-ingress
+  namespace: monitoring
+  annotations:
+    prometheus.io/scape: 'true'
+    prometheus.io/port: '80'
+spec:
+  rules:
+  - host: grafana.contour.sanjacinto.cf-app.com
+    http:
+      paths:
+        - backend:
+            serviceName: grafana-ip-service
+            servicePort: 3000
