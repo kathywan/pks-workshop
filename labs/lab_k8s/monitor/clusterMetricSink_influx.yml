@@ -1,0 +1,11 @@
+apiVersion: apps.pivotal.io/v1beta1
+kind: ClusterMetricSink
+metadata:
+  name: influxcloudsink
+spec:
+  inputs:
+  outputs:
+  - type: influxdb_v2 
+    urls: [https://us-west-2-1.aws.cloud2.influxdata.com]
+    token: "<token>"
+    organization: "qwan@pivotal.io"
